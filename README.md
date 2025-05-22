@@ -16,7 +16,7 @@ Showcases an end-to-end demo of the Vertex AI development lifecycle using custom
 
 
 **3. CI/CD Pipeline integrates Vertex AI and Github Actions**
-* Set-up **[AutoMLOps Repo](https://github.com/GoogleCloudPlatform/automlops)** and configure the source repo and specific toolings by carefully following the [user-guide slides for AutoMLOps](https://github.com/GoogleCloudPlatform/automlops/blob/main/AutoMLOps_Implementation_Guide_External.pdf) <br>
+* Set-up [AutoMLOps Repo](https://github.com/GoogleCloudPlatform/automlops) and configure the source repo and specific toolings by carefully following the [user-guide slides for AutoMLOps](https://github.com/GoogleCloudPlatform/automlops/blob/main/AutoMLOps_Implementation_Guide_External.pdf) <br>
 * This repo is configred to use Github Actions
 
 
