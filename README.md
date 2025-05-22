@@ -1,6 +1,6 @@
 # MLOps Development Cycle - Housing Model Demo
 
-Showcases an end-to-end demo of the Vertex AI development lifecycle using custom housing model data and serving container requirements
+Showcases an end-to-end demo of the Vertex AI development lifecycle using custom housing model data and serving container requirements.
 
 # Getting Started
 
@@ -16,7 +16,7 @@ Showcases an end-to-end demo of the Vertex AI development lifecycle using custom
 
 
 **3. CI/CD Pipeline integrates Vertex AI and Github Actions**
-* Set-up [AutoMLOps Repo](https://github.com/GoogleCloudPlatform/automlops) and configure the source repo and specific toolings by carefully following the [user-guide slides for AutoMLOps](https://github.com/GoogleCloudPlatform/automlops/blob/main/AutoMLOps_User_Guide.pdf) <br>
+* Set-up [AutoMLOps](https://github.com/GoogleCloudPlatform/automlops) and configure the source repo and specific toolings by carefully following the [user-guide slides for AutoMLOps](https://github.com/GoogleCloudPlatform/automlops/blob/main/AutoMLOps_User_Guide.pdf) <br>
 * This repo is configred to use Github Actions
 
 
