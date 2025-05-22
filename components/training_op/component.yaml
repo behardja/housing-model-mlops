@@ -1,0 +1,149 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# DISCLAIMER: This code is generated as part of the AutoMLOps output.
+components:
+  comp-training-op:
+    executorLabel: exec-training-op
+    inputDefinitions:
+      artifacts:
+        X_test_dataset:
+          artifactType:
+            schemaTitle: system.Dataset
+            schemaVersion: 0.0.1
+        X_train_dataset:
+          artifactType:
+            schemaTitle: system.Dataset
+            schemaVersion: 0.0.1
+        y_test_dataset:
+          artifactType:
+            schemaTitle: system.Dataset
+            schemaVersion: 0.0.1
+        y_train_dataset:
+          artifactType:
+            schemaTitle: system.Dataset
+            schemaVersion: 0.0.1
+      parameters:
+        BUCKET_URI:
+          parameterType: STRING
+        filename:
+          defaultValue: house_price_model.pkl
+          isOptional: true
+          parameterType: STRING
+        location:
+          parameterType: STRING
+        project:
+          parameterType: STRING
+    outputDefinitions:
+      artifacts:
+        pickled_model:
+          artifactType:
+            schemaTitle: system.Model
+            schemaVersion: 0.0.1
+      parameters:
+        model_gcs_path:
+          parameterType: STRING
+deploymentSpec:
+  executors:
+    exec-training-op:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - training_op
+        command:
+        - python3
+        - /pipelines/component/src/training_op.py
+        image: us-central1-docker.pkg.dev/sandbox-401718/housingmodel-artifact-registry/housingmodel/components/component_base:latest
+pipelineInfo:
+  name: training-op
+root:
+  dag:
+    outputs:
+      artifacts:
+        pickled_model:
+          artifactSelectors:
+          - outputArtifactKey: pickled_model
+            producerSubtask: training-op
+      parameters:
+        model_gcs_path:
+          valueFromParameter:
+            outputParameterKey: model_gcs_path
+            producerSubtask: training-op
+    tasks:
+      training-op:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-training-op
+        inputs:
+          artifacts:
+            X_test_dataset:
+              componentInputArtifact: X_test_dataset
+            X_train_dataset:
+              componentInputArtifact: X_train_dataset
+            y_test_dataset:
+              componentInputArtifact: y_test_dataset
+            y_train_dataset:
+              componentInputArtifact: y_train_dataset
+          parameters:
+            BUCKET_URI:
+              componentInputParameter: BUCKET_URI
+            filename:
+              componentInputParameter: filename
+            location:
+              componentInputParameter: location
+            project:
+              componentInputParameter: project
+        taskInfo:
+          name: training-op
+  inputDefinitions:
+    artifacts:
+      X_test_dataset:
+        artifactType:
+          schemaTitle: system.Dataset
+          schemaVersion: 0.0.1
+      X_train_dataset:
+        artifactType:
+          schemaTitle: system.Dataset
+          schemaVersion: 0.0.1
+      y_test_dataset:
+        artifactType:
+          schemaTitle: system.Dataset
+          schemaVersion: 0.0.1
+      y_train_dataset:
+        artifactType:
+          schemaTitle: system.Dataset
+          schemaVersion: 0.0.1
+    parameters:
+      BUCKET_URI:
+        parameterType: STRING
+      filename:
+        defaultValue: house_price_model.pkl
+        isOptional: true
+        parameterType: STRING
+      location:
+        parameterType: STRING
+      project:
+        parameterType: STRING
+  outputDefinitions:
+    artifacts:
+      pickled_model:
+        artifactType:
+          schemaTitle: system.Model
+          schemaVersion: 0.0.1
+    parameters:
+      model_gcs_path:
+        parameterType: STRING
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.7.0

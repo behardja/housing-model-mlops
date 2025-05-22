@@ -1,0 +1,13 @@
+fastapi
+fsspec
+gcsfs
+google-cloud-aiplatform
+google-cloud-storage
+joblib
+kfp>=2.0.0
+numpy
+pandas
+pandera
+pydantic
+scikit-learn
+uvicorn[standard]

@@ -1,0 +1,105 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# DISCLAIMER: This code is generated as part of the AutoMLOps output.
+components:
+  comp-model-registry-op:
+    executorLabel: exec-model-registry-op
+    inputDefinitions:
+      parameters:
+        location:
+          parameterType: STRING
+        model_display_name:
+          defaultValue: housing-model-registered
+          isOptional: true
+          parameterType: STRING
+        model_gcs_uri:
+          parameterType: STRING
+        project:
+          parameterType: STRING
+        serving_container_image:
+          parameterType: STRING
+    outputDefinitions:
+      parameters:
+        model_resource_name:
+          parameterType: STRING
+        model_version_id:
+          parameterType: STRING
+deploymentSpec:
+  executors:
+    exec-model-registry-op:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - model_registry_op
+        command:
+        - python3
+        - /pipelines/component/src/model_registry_op.py
+        image: us-central1-docker.pkg.dev/sandbox-401718/housingmodel-artifact-registry/housingmodel/components/component_base:latest
+pipelineInfo:
+  name: model-registry-op
+root:
+  dag:
+    outputs:
+      parameters:
+        model_resource_name:
+          valueFromParameter:
+            outputParameterKey: model_resource_name
+            producerSubtask: model-registry-op
+        model_version_id:
+          valueFromParameter:
+            outputParameterKey: model_version_id
+            producerSubtask: model-registry-op
+    tasks:
+      model-registry-op:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-model-registry-op
+        inputs:
+          parameters:
+            location:
+              componentInputParameter: location
+            model_display_name:
+              componentInputParameter: model_display_name
+            model_gcs_uri:
+              componentInputParameter: model_gcs_uri
+            project:
+              componentInputParameter: project
+            serving_container_image:
+              componentInputParameter: serving_container_image
+        taskInfo:
+          name: model-registry-op
+  inputDefinitions:
+    parameters:
+      location:
+        parameterType: STRING
+      model_display_name:
+        defaultValue: housing-model-registered
+        isOptional: true
+        parameterType: STRING
+      model_gcs_uri:
+        parameterType: STRING
+      project:
+        parameterType: STRING
+      serving_container_image:
+        parameterType: STRING
+  outputDefinitions:
+    parameters:
+      model_resource_name:
+        parameterType: STRING
+      model_version_id:
+        parameterType: STRING
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.7.0

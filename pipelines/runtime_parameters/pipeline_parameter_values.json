@@ -1,0 +1,9 @@
+{
+    "PROJECT_ID": "sandbox-401718",
+    "LOCATION": "us-central1",
+    "VERSION": "latest",
+    "REPO_NAME": "housing-poc",
+    "JOB_IMAGE_ID": "housing-poc-image",
+    "BUCKET_URI": "gs://sandbox-401718-pred-benchmark",
+    "gs_pipeline_spec_path": "gs://sandbox-401718-housingmodel-bucket/pipeline_root/housingmodel/pipeline_job.yaml"
+}
